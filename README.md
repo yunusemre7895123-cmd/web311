@@ -1,1 +1,0 @@
-# yunusdemirtas.github.io
