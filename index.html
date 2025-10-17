@@ -1,22 +1,296 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="tr">
-  <head>
-    <meta charset="utf-8" />
-    <title>Merhaba Dünya</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Temel Bilgiler Testi</title>
     <style>
-      body {
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 48px;
-        font-family: Arial, sans-serif;
-        background-color: #f5f5f5;
-        margin: 0;
-      }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+        }
+        .quiz-container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        .question {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background-color: #f9f9f9;
+        }
+        .question h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        .options button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #e9e9e9;
+            text-align: left;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .options button:hover:not(:disabled) {
+            background-color: #dcdcdc;
+        }
+        .options button.correct {
+            background-color: #c8e6c9; /* Yeşil */
+            border-color: #4caf50;
+        }
+        .options button.incorrect {
+            background-color: #ffcdd2; /* Kırmızı */
+            border-color: #f44336;
+        }
+        .rationale {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            line-height: 1.4;
+            display: none; /* Başlangıçta gizli */
+        }
+        .hint {
+            margin-top: 10px;
+            padding: 5px 10px;
+            border-left: 3px solid #2196f3;
+            background-color: #e3f2fd;
+            color: #1e88e5;
+            font-style: italic;
+        }
+        #results {
+            margin-top: 30px;
+            padding: 20px;
+            border: 2px dashed #007bff;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            display: none;
+        }
     </style>
-  </head>
-  <body>
-    merhaba dünya
-  </body>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h1>HTML Temel Bilgiler Testi</h1>
+    <div id="quiz">
+        </div>
+    <div id="results"></div>
+</div>
+
+<script>
+    // Quiz verileri (immersive formatındaki JSON'a benzer yapı)
+    const quizData = {
+        questions: [
+            {
+                questionNumber: 1,
+                question: "Bir HTML belgesinin temel yapısını başlatan ve tüm diğer içeriği saran kök etiket (root element) hangisidir?",
+                answerOptions: [
+                    { text: "<head>", isCorrect: false, rationale: "<head> etiketi, sayfa hakkında meta bilgiler içerir, ancak tüm belgeyi sarmalamaz." },
+                    { text: "<html>", isCorrect: true, rationale: "<html> etiketi, bir HTML belgesindeki tüm diğer elementleri saran en dıştaki etikettir ve belgenin başlangıcını işaret eder." },
+                    { text: "<body>", isCorrect: false, rationale: "<body> etiketi, kullanıcıya gösterilen içeriği içerir, ancak sayfanın tamamını (head dahil) kapsamaz." },
+                    { text: "<!DOCTYPE html>", isCorrect: false, rationale: "Bu bir etiket değil, belgenin HTML5 standardında olduğunu belirten belge türü tanımıdır." }
+                ],
+                hint: "Bu etiket, belgenin dilini (lang) tanımlamak için de kullanılır."
+            },
+            {
+                questionNumber: 2,
+                question: "Bir web sayfasında sadece bir kez kullanılması *önerilen* ve en önemli içeriği temsil eden en yüksek seviye başlık etiketi nedir?",
+                answerOptions: [
+                    { text: "<h2>", isCorrect: false, rationale: "<h2> ikinci seviye başlıktır ve bir sayfada birden çok kez kullanılabilir." },
+                    { text: "<h4>", isCorrect: false, rationale: "<h4> dördüncü seviye başlıktır ve sayfa ana başlığı için kullanılmaz." },
+                    { text: "<h1>", isCorrect: true, rationale: "<h1> etiketi, sayfanın ana başlığını veya en önemli başlığını temsil eder ve SEO performansı için genellikle sadece bir kez kullanılmalıdır." },
+                    { text: "<header>", isCorrect: false, rationale: "<header> bir başlık etiketi değil, sayfanın veya bir bölümün başlık içeriğini (navigasyon, logo vb.) içeren semantik bir etikettir." }
+                ],
+                hint: "Bu başlık, sayfa içeriğinin ana temasını ifade eder."
+            },
+            {
+                questionNumber: 3,
+                question: "Bir köprü (hyperlink) oluşturmak için kullanılan etiket ve hedefini belirleyen nitelik (attribute) hangisidir?",
+                answerOptions: [
+                    { text: "<link> ve `url`", isCorrect: false, rationale: "<link> harici kaynakları bağlamak için kullanılırken, `url` geçerli bir nitelik değildir." },
+                    { text: "<p> ve `link`", isCorrect: false, rationale: "<p> paragraf etiketidir ve bağlantı oluşturmak için kullanılmaz." },
+                    { text: "<a> ve `src`", isCorrect: false, rationale: "<a> doğru etikettir ancak `src` niteliği resim (<img>) ve script (<script>) gibi kaynaklar için kullanılır." },
+                    { text: "<a> ve `href`", isCorrect: true, rationale: "<a> etiketi köprüleri tanımlar ve `href` niteliği bağlantının hedef URL'sini belirtir." }
+                ],
+                hint: "Bağlantının adresini belirten niteliğin adı 'hiper metin referansı'nın kısaltmasıdır."
+            },
+            {
+                questionNumber: 4,
+                question: "Bir resim eklemek için kullanılan etiket ve resmin bulunamaması durumunda alternatif metin sağlamak için kullanılan zorunlu nitelik (attribute) hangisidir?",
+                answerOptions: [
+                    { text: "<image> ve `text`", isCorrect: false, rationale: "Etiket adı yanlıştır ve alternatif metin için kullanılan nitelik `text` değildir." },
+                    { text: "<img> ve `alt`", isCorrect: true, rationale: "<img> etiketi resim eklemek için kullanılır ve `alt` niteliği erişilebilirlik ve resmin yüklenememesi durumları için alternatif metin sağlar." },
+                    { text: "<figure> ve `description`", isCorrect: false, rationale: "<figure> etiketinin farklı bir semantik anlamı vardır ve `description` zorunlu bir nitelik değildir." },
+                    { text: "<img> ve `title`", isCorrect: false, rationale: "<img> doğru etikettir ancak `title` niteliği isteğe bağlı bir araç ipucu (tooltip) sağlar, zorunlu değildir." }
+                ],
+                hint: "`src` niteliği resim dosyasının yolunu belirtir, ancak istenen nitelik bu değildir."
+            },
+            {
+                questionNumber: 5,
+                question: "Bir formda kullanıcıdan **tek satırlık metin girişi** almak için kullanılan doğru `<input>` `type` değeri nedir?",
+                answerOptions: [
+                    { text: "textarea", isCorrect: false, rationale: "<textarea> etiketi, birden çok satırlık metin girişi için kullanılır, bir `<input>` türü değildir." },
+                    { text: "line", isCorrect: false, rationale: "`line`, `<input>` etiketi için geçerli bir `type` değeri değildir." },
+                    { text: "text", isCorrect: true, rationale: "type=\"text\" değeri, kullanıcının tek satırlık serbest metin girmesine olanak tanır." },
+                    { text: "string", isCorrect: false, rationale: "`string`, `<input>` etiketi için geçerli bir `type` değeri değildir." }
+                ],
+                hint: "Bu, bir kullanıcının adını, soyadını veya e-posta adresini girmesi için en yaygın kullanılan türdür."
+            },
+            {
+                questionNumber: 6,
+                question: "Bir web sayfasında sıralı (numaralı) liste oluşturmak için hangi etiket kullanılır?",
+                answerOptions: [
+                    { text: "<list>", isCorrect: false, rationale: "<list> geçerli bir HTML etiketi değildir." },
+                    { text: "<ul>", isCorrect: false, rationale: "<ul> sırasız (maddeli) liste oluşturmak için kullanılır." },
+                    { text: "<li>", isCorrect: false, rationale: "<li> liste öğelerini tanımlar, ancak listenin türünü belirlemez (sıralı veya sırasız)." },
+                    { text: "<ol>", isCorrect: true, rationale: "<ol> (ordered list) sıralı (numaralı veya alfabetik) liste oluşturmak için kullanılır." }
+                ],
+                hint: "Listenin isminin İngilizce baş harflerini düşünün (Ordered List)."
+            },
+            {
+                questionNumber: 7,
+                question: "Harici bir CSS dosyasını HTML belgesine bağlamak için kullanılan etiket hangisidir?",
+                answerOptions: [
+                    { text: "<style>", isCorrect: false, rationale: "<style> etiketi, CSS kodunu doğrudan HTML belgesine gömmek için kullanılır, harici dosyayı bağlamak için değil." },
+                    { text: "<script>", isCorrect: false, rationale: "<script> etiketi JavaScript dosyalarını bağlamak veya kod çalıştırmak için kullanılır." },
+                    { text: "<a>", isCorrect: false, rationale: "<a> etiketi köprüler oluşturmak için kullanılır." },
+                    { text: "<link>", isCorrect: true, rationale: "<link> etiketi, harici kaynaklar (genellikle CSS dosyaları) ile mevcut belge arasında bir ilişki kurmak için kullanılır." }
+                ],
+                hint: "Bu etiket, tipik olarak `<head>` etiketi içinde yer alır ve `rel=\"stylesheet\"` niteliğini kullanır."
+            },
+            {
+                questionNumber: 8,
+                question: "HTML5'te, sayfanın ana içeriğini (navigasyon, başlık veya altbilgi gibi tekrar eden bölümler hariç) belirtmek için kullanılan semantik etiket hangisidir?",
+                answerOptions: [
+                    { text: "<footer>", isCorrect: false, rationale: "<footer> etiketi, sayfanın, bir bölümün veya makalenin altbilgi içeriğini (genellikle telif hakkı, iletişim bilgileri vb.) belirtir." },
+                    { text: "<section>", isCorrect: false, rationale: "<section> bir belgedeki bağımsız, genel bir içerik bölümünü gruplamak için kullanılır, ancak ana içeriğin tamamını temsil etmez." },
+                    { text: "<div>", isCorrect: false, rationale: "<div> genel amaçlı, anlamsız bir blok taşıyıcıdır ve ana içeriği semantik olarak belirtmek için kullanılmaz." },
+                    { text: "<main>", isCorrect: true, rationale: "<main> etiketi, belgenin ana içeriğini içerir ve bir belgede yalnızca bir kez kullanılmalıdır." }
+                ],
+                hint: "Bu etiket, sayfanın merkezindeki benzersiz ve baskın içeriği tanımlar."
+            },
+            {
+                questionNumber: 9,
+                question: "Bir etiketin bir veya daha fazla kez kullanılabileceği ve genel amaçlı stil/betik amaçlı kullanılan **satır içi (inline)** taşıyıcı etiket hangisidir?",
+                answerOptions: [
+                    { text: "<div>", isCorrect: false, rationale: "<div> bir **blok** seviyesi taşıyıcı etikettir, satır içi değil." },
+                    { text: "<p>", isCorrect: false, rationale: "<p> paragraf etiketidir ve metin blokları için kullanılır, genel amaçlı satır içi taşıyıcı değildir." },
+                    { text: "<span>", isCorrect: true, rationale: "<span> etiketi, metnin bir bölümünü stilize etmek veya betik uygulamak için kullanılan genel amaçlı **satır içi** bir taşıyıcıdır." },
+                    { text: "<article>", isCorrect: false, rationale: "<article> bağımsız, kendi içinde tamamlanmış bir içeriği temsil eden semantik bir **blok** etiketidir." }
+                ],
+                hint: "Bu etiket, blok seviyesindeki karşılığı olan `<div>` etiketine benzer bir işlev görür, ancak metin akışını bölmez."
+            },
+            {
+                questionNumber: 10,
+                question: "Bir etikete özel bir stil veya JavaScript davranışı atamak için, o etiketi benzersiz şekilde tanımlayan hangi nitelik (attribute) kullanılır?",
+                answerOptions: [
+                    { text: "class", isCorrect: false, rationale: "`class` niteliği, birden çok etikete uygulanabilen bir grup tanımlamak için kullanılır, benzersiz bir tanımlama için değil." },
+                    { text: "style", isCorrect: false, rationale: "`style` niteliği, etikete doğrudan satır içi CSS uygulamak için kullanılır, benzersiz bir tanımlama için değil." },
+                    { text: "name", isCorrect: false, rationale: "`name` niteliği çoğunlukla form elemanları için veri gönderme amacıyla kullanılır, genel benzersiz kimlik için değil." },
+                    { text: "id", isCorrect: true, rationale: "`id` niteliği, bir HTML belgesindeki tek bir etiketi benzersiz olarak tanımlar ve JavaScript/CSS hedeflemesi için idealdir." }
+                ],
+                hint: "Bu niteliğin değeri, tüm belgede sadece bir kez kullanılmalıdır."
+            }
+        ]
+    };
+
+    let score = 0;
+    let answeredCount = 0;
+    const totalQuestions = quizData.questions.length;
+    const quizDiv = document.getElementById('quiz');
+    const resultsDiv = document.getElementById('results');
+
+    function loadQuiz() {
+        quizData.questions.forEach((q, index) => {
+            const questionElement = document.createElement('div');
+            questionElement.className = 'question';
+            questionElement.id = `q-${index}`;
+            questionElement.innerHTML = `
+                <h3>Soru ${q.questionNumber}: ${q.question}</h3>
+                <div class="hint">İpucu: ${q.hint}</div>
+                <div class="options">
+                    ${q.answerOptions.map((option, optIndex) => `
+                        <button 
+                            data-q="${index}" 
+                            data-opt="${optIndex}"
+                            onclick="checkAnswer(${index}, ${optIndex}, this)">
+                            ${option.text}
+                        </button>
+                    `).join('')}
+                </div>
+            `;
+            quizDiv.appendChild(questionElement);
+        });
+    }
+
+    function checkAnswer(qIndex, optIndex, button) {
+        // Zaten cevaplanmışsa işlemi durdur
+        const questionElement = document.getElementById(`q-${qIndex}`);
+        if (questionElement.classList.contains('answered')) {
+            return;
+        }
+        
+        questionElement.classList.add('answered');
+        answeredCount++;
+
+        const question = quizData.questions[qIndex];
+        const selectedOption = question.answerOptions[optIndex];
+        const rationaleDiv = document.createElement('div');
+        rationaleDiv.className = 'rationale';
+        rationaleDiv.style.display = 'block';
+
+        if (selectedOption.isCorrect) {
+            button.classList.add('correct');
+            score++;
+            rationaleDiv.style.backgroundColor = '#d4edda'; // Açık yeşil
+            rationaleDiv.style.color = '#155724';
+        } else {
+            button.classList.add('incorrect');
+            rationaleDiv.style.backgroundColor = '#f8d7da'; // Açık kırmızı
+            rationaleDiv.style.color = '#721c24';
+            
+            // Doğru cevabı işaretle
+            const allButtons = questionElement.querySelectorAll('.options button');
+            allButtons.forEach((btn, i) => {
+                if (question.answerOptions[i].isCorrect) {
+                    btn.classList.add('correct');
+                }
+            });
+        }
+        
+        rationaleDiv.innerHTML = `<strong>Açıklama:</strong> ${selectedOption.rationale}`;
+        questionElement.querySelector('.options').appendChild(rationaleDiv);
+
+        // Diğer butonları devre dışı bırak
+        const siblingButtons = questionElement.querySelectorAll('.options button');
+        siblingButtons.forEach(btn => btn.disabled = true);
+
+        // Tüm sorular cevaplandıysa sonucu göster
+        if (answeredCount === totalQuestions) {
+            showResults();
+        }
+    }
+
+    function showResults() {
+        resultsDiv.innerHTML = `Test bitti! ${totalQuestions} sorudan ${score} doğru cevap verdiniz.`;
+        resultsDiv.style.display = 'block';
+    }
+
+    // Sayfa yüklendiğinde testi başlat
+    window.onload = loadQuiz;
+</script>
+
+</body>
 </html>
