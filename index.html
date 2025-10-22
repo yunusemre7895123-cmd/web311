@@ -1,12 +1,14 @@
+index kodları
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF--8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anket Formu | Tüm Input Türleri</title>
+    <title>Ödev Sayfası</title>
     <style>
+        /* Genel Sayfa Stilleri */
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             background-color: #f4f7f6;
             color: #333;
             line-height: 1.6;
@@ -14,246 +16,182 @@
             padding: 20px;
         }
 
-        .form-container {
+        /* Ana İçerik Konteyneri */
+        .container {
             max-width: 800px;
             margin: 20px auto;
-            padding: 30px;
+            padding: 25px;
             background-color: #ffffff;
             border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
 
+        /* Başlık Stili */
         h1 {
-            text-align: center;
             color: #2c3e50;
-            margin-bottom: 25px;
+            text-align: center;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
         }
 
-        fieldset {
+        /* Ödev Listesi Stilleri */
+        .odev-listesi {
+            list-style: none;
+            padding: 0;
+        }
+
+        /* Her bir ödev öğesi (Açılır/Kapanır Menü) */
+        details {
+            background-color: #f9f9f9;
             border: 1px solid #ddd;
             border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 25px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        details[open] {
+            background-color: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
 
-        legend {
-            font-size: 1.2em;
+        /* Ödev başlığı (Tıklanacak alan) */
+        summary {
+            font-size: 1.1em;
             font-weight: 600;
-            color: #3498db;
-            padding: 0 10px;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-
-        input[type="text"],
-        input[type="password"],
-        input[type="email"],
-        input[type="number"],
-        input[type="tel"],
-        input[type="url"],
-        input[type="search"],
-        input[type="date"],
-        input[type="time"],
-        input[type="datetime-local"],
-        input[type="month"],
-        input[type="week"] {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-            transition: border-color 0.3s;
-        }
-        
-        input:focus {
-            border-color: #3498db;
-            outline: none;
-            box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
-        }
-        
-        .button-group {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-        
-        input[type="submit"],
-        input[type="reset"],
-        input[type="button"] {
-            padding: 12px 20px;
-            border: none;
-            border-radius: 5px;
-            color: white;
-            font-size: 1em;
+            color: #34495e;
+            padding: 15px 20px;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
-        }
-
-        input[type="submit"] { background-color: #2ecc71; }
-        input[type="reset"] { background-color: #e74c3c; }
-
-        input[type="submit"]:hover { background-color: #27ae60; transform: translateY(-2px); }
-        input[type="reset"]:hover { background-color: #c0392b; transform: translateY(-2px); }
-
-        .choice-group {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 8px;
-        }
-        .choice-group label {
-            margin-bottom: 0;
-            font-weight: normal;
+            outline: none; /* Tıklama sonrası çıkan çerçeveyi kaldırır */
+            display: block; /* Ok işaretini sona almak için */
         }
         
-        input[type="checkbox"], input[type="radio"]{
-            margin-right: 5px;
+        summary::-webkit-details-marker {
+            /* Chrome için ok işaretini gizle */
+            display: none;
+        }
+
+        summary::after {
+            /* Kendi ok işaretimizi ekleyelim */
+            content: '▼';
+            float: right;
+            transform: rotate(0deg);
+            transition: transform 0.3s;
+        }
+        
+        details[open] summary::after {
+            transform: rotate(180deg);
+        }
+
+        /* Ödevin içeriği (Açılan alan) */
+        .odev-icerik {
+            padding: 20px; /* Sadece link olduğu için padding'i güncelledim */
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .odev-icerik a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em; /* Linki biraz daha görünür yaptım */
+        }
+        
+        .odev-icerik a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer Stili */
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #888;
+            font-size: 0.9em;
         }
     </style>
 </head>
 <body>
 
-    <div class="form-container">
-        <h1>Kullanıcı Anketi</h1>
-        <form action="#" method="post">
+    <div class="container">
+        <h1>Web Programlama - Ödevler</h1>
 
-            <fieldset>
-                <legend>Kişisel Bilgiler</legend>
-                
-                <div class="form-group">
-                    <label for="text">Adınız ve Soyadınız nedir?</label>
-                    <input type="text" id="text" name="ad_soyad" placeholder="Yanıtınız">
+        <div class="odev-listesi">
+            
+            <details>
+                <summary>Ödev 1: HTML ile Kişisel Web Sayfası</summary>
+                <div class="odev-icerik">
+                    <a href="#" target="_blank">Ödev Dosyalarına Git &rarr;</a>
                 </div>
-                
-                <div class="form-group">
-                    <label for="email">E-posta adresiniz nedir?</label>
-                    <input type="email" id="email" name="email" placeholder="ornek@alanadi.com" required>
-                </div>
+            </details>
 
-                <div class="form-group">
-                    <label for="password">Lütfen hesabınız için bir şifre belirleyin.</label>
-                    <input type="password" id="password" name="password" placeholder="Güçlü bir şifre girin">
+            <details>
+                <summary>Ödev 2: CSS ile Sayfa Tasarımı</summary>
+                <div class="odev-icerik">
+                    <a href="#" target="_blank">Ödev Dosyalarına Git &rarr;</a>
                 </div>
-                
-                <div class="form-group">
-                    <label for="tel">Size ulaşabileceğimiz bir telefon numarası var mı?</label>
-                    <input type="tel" id="tel" name="telefon" placeholder="555-123-4567">
-                </div>
-                
-                <div class="form-group">
-                    <label for="url">Varsa, kişisel web sitenizin adresi nedir?</label>
-                    <input type="url" id="url" name="website" placeholder="https://www.ornek.com">
-                </div>
-                
-                <div class="form-group">
-                    <label for="number">Yaşınız kaç?</label>
-                    <input type="number" id="number" name="yas" min="13" max="120" placeholder="18">
-                </div>
-                 <div class="form-group">
-                    <label for="search">Sitemizde ne aramak istersiniz?</label>
-                    <input type="search" id="search" name="arama" placeholder="Ürün, hizmet, makale...">
-                </div>
-            </fieldset>
+            </details>
 
-            <fieldset>
-                <legend>Zamanlama ve Tarihler</legend>
-                
-                <div class="form-group">
-                    <label for="date">Doğum tarihinizi seçin.</label>
-                    <input type="date" id="date" name="dogum_tarihi">
+            <details>
+                <summary>Ödev 3: CSS Flexbox ile Yerleşim</summary>
+                <div class="odev-icerik">
+                    <a href="#" target="_blank">Ödev Dosyalarına Git &rarr;</a>
                 </div>
-                
-                <div class="form-group">
-                    <label for="datetime-local">Önerdiğiniz toplantı tarihi ve saati nedir?</label>
-                    <input type="datetime-local" id="datetime-local" name="toplanti_zamani">
+            </details>
+            
+            <details>
+                <summary>Ödev 4: Responsive (Duyarlı) Tasarım</summary>
+                <div class="odev-icerik">
+                    <a href="#" target="_blank">Ödev Dosyalarına Git &rarr;</a>
                 </div>
-                
-                <div class="form-group">
-                    <label for="month">Hangi ay için bütçe planlaması yapıyorsunuz?</label>
-                    <input type="month" id="month" name="butce_ayi">
-                </div>
-                
-                <div class="form-group">
-                    <label for="week">Projenin hangi haftada başlamasını istersiniz?</label>
-                    <input type="week" id="week" name="proje_haftasi">
-                </div>
+            </details>
 
-                 <div class="form-group">
-                    <label for="time">Günlük olarak bildirimleri saat kaçta almak istersiniz?</label>
-                    <input type="time" id="time" name="bildirim_saati">
+            <details>
+                <summary>Ödev 5: JavaScript Temelleri ve DOM Manipülasyonu</summary>
+                <div class="odev-icerik">
+                    <a href="#" target="_blank">Ödev Dosyalarına Git &rarr;</a>
                 </div>
-            </fieldset>
+            </details>
 
-            <fieldset>
-                <legend>Tercihleriniz ve Dosyalar</legend>
+            <details>
+                <summary>Ödev 6: Form Oluşturma ve Doğrulama</summary>
+                <div class="odev-icerik">
+                    <a href="#" target="_blank">Ödev Dosyalarına Git &rarr;</a>
+                </div>
+            </details>
 
-                <div class="form-group">
-                    <label>Hangi üyelik tipini tercih edersiniz?</label>
-                    <div class="choice-group">
-                        <input type="radio" id="standart" name="uyelik" value="standart">
-                        <label for="standart">Standart</label>
-                    </div>
-                     <div class="choice-group">
-                        <input type="radio" id="premium" name="uyelik" value="premium">
-                        <label for="premium">Premium</label>
-                    </div>
+            <details>
+                <summary>Ödev 7: Basit bir "To-Do List" Uygulaması</summary>
+                <div class="odev-icerik">
+                    <a href="#" target="_blank">Ödev Dosyalarına Git &rarr;</a>
                 </div>
+            </details>
 
-                <div class="form-group">
-                    <label>İlgi alanlarınız hangileri? (Birden fazla seçebilirsiniz)</label>
-                    <div class="choice-group">
-                        <input type="checkbox" id="teknoloji" name="ilgi" value="teknoloji">
-                        <label for="teknoloji">Teknoloji</label>
-                    </div>
-                    <div class="choice-group">
-                        <input type="checkbox" id="sanat" name="ilgi" value="sanat">
-                        <label for="sanat">Sanat</label>
-                    </div>
-                    <div class="choice-group">
-                        <input type="checkbox" id="spor" name="ilgi" value="spor">
-                        <label for="spor">Spor</label>
-                    </div>
+            <details>
+                <summary>Ödev 8: CSS Grid ile Galeri Sayfası</summary>
+                <div class="odev-icerik">
+                    <a href="#" target="_blank">Ödev Dosyalarına Git &rarr;</a>
                 </div>
+            </details>
+            
+            <details>
+                <summary>Ödev 9: API ile Veri Çekme (Fetch API)</summary>
+                <div class="odev-icerik">
+                    <a href="#" target="_blank">Ödev Dosyalarına Git &rarr;</a>
+                </div>
+            </details>
 
-                <div class="form-group">
-                    <label for="color">Profilinizde öne çıkacak favori renginizi seçin.</label>
-                    <input type="color" id="color" name="favori_renk" value="#3498db" style="width: 100px; height: 40px;">
+            <details>
+                <summary>Ödev 10: Final Projesi</summary>
+                <div class="odev-icerik">
+                    <a href="#" target="_blank">Ödev Dosyalarına Git &rarr;</a>
                 </div>
+            </details>
 
-                <div class="form-group">
-                    <label for="range">Hizmetimizden ne kadar memnunsunuz? (0: Hiç - 100: Çok)</label>
-                    <input type="range" id="range" name="memnuniyet" min="0" max="100" step="1">
-                </div>
-                
-                <div class="form-group">
-                    <label for="file">Başvuru için lütfen CV'nizi yükleyin.</label>
-                    <input type="file" id="file" name="cv_dosyasi" accept=".pdf,.doc,.docx">
-                </div>
-            </fieldset>
-
-            <fieldset>
-                <legend>Formu Gönder</legend>
-                <input type="hidden" name="form_id" value="anket_v1">
-                <div class="button-group">
-                    <input type="submit" value="Yanıtları Gönder">
-                    <input type="reset" value="Formu Temizle">
-                </div>
-                <div class="form-group" style="margin-top:20px;">
-                    <label for="image-button">Veya bu butona tıklayarak formu gönderebilirsiniz:</label>
-                    <input type="image" id="image-button" src="https://via.placeholder.com/120x45.png?text=Gönder" alt="Formu Gönder">
-                </div>
-            </fieldset>
-
-        </form>
+        </div>
     </div>
+
+    <footer>
+        <p>&copy; 2025 | Adınız Soyadınız</p>
+    </footer>
 
 </body>
 </html>
