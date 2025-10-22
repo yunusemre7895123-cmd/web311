@@ -1,0 +1,172 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lab Görevi</title>
+
+<!-- INTERNAL CSS -->
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 30px;
+  background-color: #fdfdfd;
+  color: #222;
+}
+
+h2 {
+  color: #008000;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 25px;
+}
+
+th, td {
+  padding: 8px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+
+thead {
+  background-color: #444;
+  color: white;
+}
+
+/* Internal CSS tablo (2. kopya) */
+.internal th {
+  background-color: #0077b6;
+}
+.internal tr:nth-child(even) {
+  background-color: #f1f1f1;
+}
+
+/* External CSS tablo (3. kopya) */
+.external th {
+  background-color: #4a148c;
+}
+.external tr:hover {
+  background-color: #fce4ec;
+}
+
+/* Görev 2 için daireler */
+.venn {
+  position: relative;
+  width: 300px;
+  height: 200px;
+  margin-top: 40px;
+}
+
+.circle {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  opacity: 0.7;
+  position: absolute;
+  mix-blend-mode: multiply;
+}
+
+.c1 { background-color: red; left: 0; top: 25px; }
+.c2 { background-color: blue; left: 80px; top: 25px; }
+.c3 { background-color: yellow; left: 40px; top: 80px; }
+</style>
+</head>
+<body>
+
+<!-- GÖREV 1 -->
+<h2>Görev 1</h2>
+<p>Bir tablonun üç kopyası olacak: Inline CSS, Internal CSS, External CSS.</p>
+
+<!-- 1. Kopya: Inline CSS -->
+<table style="border:2px solid #000;">
+  <thead>
+    <tr style="background:#000; color:#fff;">
+      <th>Saat</th>
+      <th>Pazartesi</th>
+      <th>Salı</th>
+      <th>Çarşamba</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="border:1px solid #000;">09:00 - 10:00</td>
+      <td style="border:1px solid #000;">Matematik</td>
+      <td style="border:1px solid #000;">Bilişim</td>
+      <td style="border:1px solid #000;">Fizik</td>
+    </tr>
+    <tr>
+      <td style="border:1px solid #000;">10:15 - 11:15</td>
+      <td style="border:1px solid #000;">Türkçe</td>
+      <td style="border:1px solid #000;">İngilizce</td>
+      <td style="border:1px solid #000;">Kimya</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- 2. Kopya: Internal CSS -->
+<table class="internal">
+  <thead>
+    <tr>
+      <th>Saat</th>
+      <th>Perşembe</th>
+      <th>Cuma</th>
+      <th>Cumartesi</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>09:00 - 10:00</td>
+      <td>Geometri</td>
+      <td>Bilişim</td>
+      <td>Seçmeli</td>
+    </tr>
+    <tr>
+      <td>10:15 - 11:15</td>
+      <td>Biyoloji</td>
+      <td>Tarih</td>
+      <td>Etkinlik</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- 3. Kopya: External CSS -->
+<table class="external" id="external-table">
+  <thead>
+    <tr>
+      <th>Saat</th>
+      <th>Pazar</th>
+      <th>Pazartesi</th>
+      <th>Salı</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>09:00 - 10:00</td>
+      <td>Etkinlik</td>
+      <td>Bilişim</td>
+      <td>Matematik</td>
+    </tr>
+    <tr>
+      <td>10:15 - 11:15</td>
+      <td>Proje</td>
+      <td>Fizik</td>
+      <td>Seçmeli</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- GÖREV 2 -->
+<h2>Görev 2</h2>
+<p>3 tane <code>div</code> kullanarak daireleri CSS stilleri ile oluşturunuz.</p>
+
+<div class="venn">
+  <div class="circle c1"></div>
+  <div class="circle c2"></div>
+  <div class="circle c3"></div>
+</div>
+
+</body>
+</html>
