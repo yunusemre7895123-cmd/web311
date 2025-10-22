@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF--8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anket Formu | Tüm Input Türleri</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 25px;
+        }
+
+        fieldset {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        legend {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #3498db;
+            padding: 0 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"],
+        input[type="number"],
+        input[type="tel"],
+        input[type="url"],
+        input[type="search"],
+        input[type="date"],
+        input[type="time"],
+        input[type="datetime-local"],
+        input[type="month"],
+        input[type="week"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        input[type="submit"],
+        input[type="reset"],
+        input[type="button"] {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        input[type="submit"] { background-color: #2ecc71; }
+        input[type="reset"] { background-color: #e74c3c; }
+
+        input[type="submit"]:hover { background-color: #27ae60; transform: translateY(-2px); }
+        input[type="reset"]:hover { background-color: #c0392b; transform: translateY(-2px); }
+
+        .choice-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        .choice-group label {
+            margin-bottom: 0;
+            font-weight: normal;
+        }
+        
+        input[type="checkbox"], input[type="radio"]{
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h1>Kullanıcı Anketi</h1>
+        <form action="#" method="post">
+
+            <fieldset>
+                <legend>Kişisel Bilgiler</legend>
+                
+                <div class="form-group">
+                    <label for="text">Adınız ve Soyadınız nedir?</label>
+                    <input type="text" id="text" name="ad_soyad" placeholder="Yanıtınız">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">E-posta adresiniz nedir?</label>
+                    <input type="email" id="email" name="email" placeholder="ornek@alanadi.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Lütfen hesabınız için bir şifre belirleyin.</label>
+                    <input type="password" id="password" name="password" placeholder="Güçlü bir şifre girin">
+                </div>
+                
+                <div class="form-group">
+                    <label for="tel">Size ulaşabileceğimiz bir telefon numarası var mı?</label>
+                    <input type="tel" id="tel" name="telefon" placeholder="555-123-4567">
+                </div>
+                
+                <div class="form-group">
+                    <label for="url">Varsa, kişisel web sitenizin adresi nedir?</label>
+                    <input type="url" id="url" name="website" placeholder="https://www.ornek.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="number">Yaşınız kaç?</label>
+                    <input type="number" id="number" name="yas" min="13" max="120" placeholder="18">
+                </div>
+                 <div class="form-group">
+                    <label for="search">Sitemizde ne aramak istersiniz?</label>
+                    <input type="search" id="search" name="arama" placeholder="Ürün, hizmet, makale...">
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Zamanlama ve Tarihler</legend>
+                
+                <div class="form-group">
+                    <label for="date">Doğum tarihinizi seçin.</label>
+                    <input type="date" id="date" name="dogum_tarihi">
+                </div>
+                
+                <div class="form-group">
+                    <label for="datetime-local">Önerdiğiniz toplantı tarihi ve saati nedir?</label>
+                    <input type="datetime-local" id="datetime-local" name="toplanti_zamani">
+                </div>
+                
+                <div class="form-group">
+                    <label for="month">Hangi ay için bütçe planlaması yapıyorsunuz?</label>
+                    <input type="month" id="month" name="butce_ayi">
+                </div>
+                
+                <div class="form-group">
+                    <label for="week">Projenin hangi haftada başlamasını istersiniz?</label>
+                    <input type="week" id="week" name="proje_haftasi">
+                </div>
+
+                 <div class="form-group">
+                    <label for="time">Günlük olarak bildirimleri saat kaçta almak istersiniz?</label>
+                    <input type="time" id="time" name="bildirim_saati">
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Tercihleriniz ve Dosyalar</legend>
+
+                <div class="form-group">
+                    <label>Hangi üyelik tipini tercih edersiniz?</label>
+                    <div class="choice-group">
+                        <input type="radio" id="standart" name="uyelik" value="standart">
+                        <label for="standart">Standart</label>
+                    </div>
+                     <div class="choice-group">
+                        <input type="radio" id="premium" name="uyelik" value="premium">
+                        <label for="premium">Premium</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>İlgi alanlarınız hangileri? (Birden fazla seçebilirsiniz)</label>
+                    <div class="choice-group">
+                        <input type="checkbox" id="teknoloji" name="ilgi" value="teknoloji">
+                        <label for="teknoloji">Teknoloji</label>
+                    </div>
+                    <div class="choice-group">
+                        <input type="checkbox" id="sanat" name="ilgi" value="sanat">
+                        <label for="sanat">Sanat</label>
+                    </div>
+                    <div class="choice-group">
+                        <input type="checkbox" id="spor" name="ilgi" value="spor">
+                        <label for="spor">Spor</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="color">Profilinizde öne çıkacak favori renginizi seçin.</label>
+                    <input type="color" id="color" name="favori_renk" value="#3498db" style="width: 100px; height: 40px;">
+                </div>
+
+                <div class="form-group">
+                    <label for="range">Hizmetimizden ne kadar memnunsunuz? (0: Hiç - 100: Çok)</label>
+                    <input type="range" id="range" name="memnuniyet" min="0" max="100" step="1">
+                </div>
+                
+                <div class="form-group">
+                    <label for="file">Başvuru için lütfen CV'nizi yükleyin.</label>
+                    <input type="file" id="file" name="cv_dosyasi" accept=".pdf,.doc,.docx">
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Formu Gönder</legend>
+                <input type="hidden" name="form_id" value="anket_v1">
+                <div class="button-group">
+                    <input type="submit" value="Yanıtları Gönder">
+                    <input type="reset" value="Formu Temizle">
+                </div>
+                <div class="form-group" style="margin-top:20px;">
+                    <label for="image-button">Veya bu butona tıklayarak formu gönderebilirsiniz:</label>
+                    <input type="image" id="image-button" src="https://via.placeholder.com/120x45.png?text=Gönder" alt="Formu Gönder">
+                </div>
+            </fieldset>
+
+        </form>
+    </div>
+
+</body>
+</html>
