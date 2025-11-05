@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Görevi 3 - Animasyonlar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h3 {
+            color: #333;
+        }
+
+        /* Tüm kutular için temel stil */
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: #007bff;
+            border-radius: 50%; /* Daire şeklinde olması için */
+            margin: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        /* --- Animasyonlar --- */
+
+        /* 1. Yukarı-aşağı gidip gelen */
+        .up-down {
+            animation: moveUpDown 2s infinite alternate ease-in-out;
+        }
+
+        @keyframes moveUpDown {
+            from {
+                transform: translateY(0);
+            }
+            to {
+                transform: translateY(50px);
+            }
+        }
+
+        /* 2. Büyüyüp küçülen ve rengi değişen */
+        .grow-color {
+            background-color: #dc3545; /* Kırmızı */
+            animation: growAndChangeColor 3s infinite alternate ease-in-out;
+        }
+
+        @keyframes growAndChangeColor {
+            from {
+                transform: scale(1);
+                background-color: #dc3545; /* Kırmızı */
+            }
+            to {
+                transform: scale(1.5); /* 1.5 kat büyü */
+                background-color: #28a745; /* Yeşil */
+            }
+        }
+
+        /* 3. Transparan değeri artan ve azalan (Fade in/out) */
+        .fade {
+            background-color: #ffc107; /* Sarı */
+            animation: fadeInOut 2s infinite alternate ease-in-out;
+        }
+
+        @keyframes fadeInOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0.1; /* Neredeyse görünmez yap */
+            }
+        }
+
+        /* 4. Sağa-sola giden gelen */
+        .left-right {
+            background-color: #17a2b8; /* Turkuaz */
+            animation: moveLeftRight 3s infinite alternate ease-in-out;
+        }
+
+        @keyframes moveLeftRight {
+            from {
+                transform: translateX(0);
+            }
+            to {
+                transform: translateX(100px); /* 100px sağa git */
+            }
+        }
+
+        /* 5. Dönen */
+        .rotate {
+            background-color: #6f42c1; /* Mor */
+            animation: spin 4s infinite linear; /* linear: sabit hızda dönsün */
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg); /* Tam bir tur dön */
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <h2>LAB GÖREVİ 3: Animasyonları</h2>
+
+    <h3>1. Yukarı Aşağı Giden</h3>
+    <div class="box up-down">Yukarı<br>Aşağı</div>
+
+    <h3>2. Büyüyüp Küçülen ve Renk Değiştiren</h3>
+    <div class="box grow-color">Büyü/Küçül<br>Renk Değiş</div>
+
+    <h3>3. Transparanlığı Değişen</h3>
+    <div class="box fade">Fade In<br>Fade Out</div>
+
+    <h3>4. Sağa Sola Giden</h3>
+    <div class="box left-right">Sağa<br>Sola</div>
+
+    <h3>5. Dönen</h3>
+    <div class="box rotate">Dönme</div>
+
+</body>
+</html>
