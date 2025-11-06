@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Görevi 1 - Farklı Animasyonlu Emojiler</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            justify-content: center;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 40px;
+        }
+
+        .container {
+            display: flex;
+            gap: 30px; /* Emojiler arasında boşluk */
+            flex-wrap: wrap; /* Küçük ekranlarda alt alta gelmeleri için */
+            justify-content: center;
+        }
+
+        /* Emoji kutularının temel stili */
+        .emoji-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .emoji {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .eye {
+            width: 10px;
+            height: 10px;
+            background-color: black;
+            border-radius: 50%;
+            position: absolute; /* Gözlerin konumunu kolaylaştırmak için */
+        }
+
+        .mouth {
+            background-color: black;
+            position: absolute;
+        }
+
+        .label {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        /* --- Emoji Renkleri --- */
+        .emoji.red { background-color: #ff6347; } /* Domates Kırmızısı */
+        .emoji.blue { background-color: #6a5acd; } /* Mavi Mor */
+        .emoji.green { background-color: #3cb371; } /* Deniz Yeşili */
+        .emoji.purple { background-color: #9370db; } /* Orta Mor */
+        .emoji.orange { background-color: #ffa500; } /* Turuncu */
+
+
+        /* --- Emoji İfadeleri ve Konumları --- */
+
+        /* 1. Yukarı-Aşağı (Mutlu, Gülen Yüz) */
+        .emoji.happy .eye-left { top: 40px; left: 35px; }
+        .emoji.happy .eye-right { top: 40px; right: 35px; }
+        .emoji.happy .mouth {
+            bottom: 30px;
+            width: 50px;
+            height: 25px;
+            border-radius: 0 0 25px 25px;
+            border: 2px solid black;
+            border-top: none;
+            background-color: transparent; /* Ağzın içi boş */
+        }
+
+        /* 2. Büyü-Küçül + Renk (Düz, Nötr Yüz) */
+        .emoji.neutral .eye-left { top: 40px; left: 35px; }
+        .emoji.neutral .eye-right { top: 40px; right: 35px; }
+        .emoji.neutral .mouth {
+            bottom: 45px;
+            width: 40px;
+            height: 5px;
+            border-radius: 2px;
+        }
+
+        /* 3. Transparan (Şaşkın, Açık Ağızlı Yüz) */
+        .emoji.surprised .eye-left { top: 40px; left: 35px; }
+        .emoji.surprised .eye-right { top: 40px; right: 35px; }
+        .emoji.surprised .mouth {
+            bottom: 30px;
+            width: 30px;
+            height: 25px;
+            border-radius: 50%; /* O harfi gibi bir ağız */
+        }
+
+        /* 4. Sağa-Sola (Göz Kırpan Yüz) */
+        .emoji.wink .eye-left { top: 40px; left: 35px; }
+        .emoji.wink .eye-right {
+            top: 40px;
+            right: 35px;
+            width: 15px; /* Kırpılmış göz daha geniş */
+            height: 5px;
+            border-radius: 2px; /* Düz çizgi gibi */
+            transform: rotate(-10deg); /* Hafif açılı */
+        }
+        .emoji.wink .mouth {
+            bottom: 30px;
+            width: 50px;
+            height: 20px;
+            border-radius: 0 0 20px 20px;
+            border: 2px solid black;
+            border-top: none;
+            background-color: transparent;
+            transform: translateX(-5px); /* Hafif yana kaydır */
+        }
+
+        /* 5. Dönen (Dil Çıkaran Yüz) */
+        .emoji.tongue-out .eye-left { top: 35px; left: 35px; }
+        .emoji.tongue-out .eye-right { top: 35px; right: 35px; }
+        .emoji.tongue-out .mouth {
+            bottom: 25px;
+            width: 40px;
+            height: 15px;
+            border-radius: 0 0 15px 15px;
+            background-color: black;
+            position: relative; /* Dil için */
+            overflow: hidden; /* Dilin dışarı taşmasını engelle */
+        }
+        .emoji.tongue-out .mouth::after {
+            content: '';
+            position: absolute;
+            bottom: -5px; /* Ağızdan aşağı sarkacak şekilde */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 15px;
+            height: 20px;
+            background-color: #f08080; /* Dil rengi */
+            border-radius: 0 0 10px 10px;
+            z-index: 1;
+        }
+
+        /* --- Animasyonlar --- */
+
+        /* 1. Yukarı-aşağı gidip gelen */
+        .emoji.up-down-anim {
+            animation: moveUpDown 2s infinite alternate ease-in-out;
+        }
+
+        @keyframes moveUpDown {
+            from { transform: translateY(0); }
+            to { transform: translateY(30px); }
+        }
+
+        /* 2. Büyüyüp küçülen ve rengi değişen */
+        .emoji.grow-color-anim {
+            animation: growAndChangeColor 3s infinite alternate ease-in-out;
+        }
+
+        @keyframes growAndChangeColor {
+            from {
+                transform: scale(1);
+                background-color: #6a5acd; /* Başlangıç mavi */
+            }
+            to {
+                transform: scale(1.3); /* 1.3 kat büyü */
+                background-color: #3cb371; /* Yeşilimsi */
+            }
+        }
+
+        /* 3. Transparan değeri artan ve azalan (Fade in/out) */
+        .emoji.fade-anim {
+            animation: fadeInOut 2s infinite alternate ease-in-out;
+        }
+
+        @keyframes fadeInOut {
+            from { opacity: 1; }
+            to { opacity: 0.1; }
+        }
+
+        /* 4. Sağa-sola giden gelen */
+        .emoji.left-right-anim {
+            animation: moveLeftRight 3s infinite alternate ease-in-out;
+        }
+
+        @keyframes moveLeftRight {
+            from { transform: translateX(0); }
+            to { transform: translateX(60px); } /* 60px sağa git */
+        }
+
+        /* 5. Dönen */
+        .emoji.rotate-anim {
+            animation: spin 4s infinite linear;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <h2>LAB GÖREVİ 1 – Farklı İfadelerde ve Tek Renkte Animasyonlu Emojiler</h2>
+
+    <div class="container">
+        <div class="emoji-wrapper">
+            <div class="emoji red happy up-down-anim">
+                <div class="eye eye-left"></div>
+                <div class="eye eye-right"></div>
+                <div class="mouth"></div>
+            </div>
+            <span class="label">Yukarı-Aşağı</span>
+        </div>
+
+        <div class="emoji-wrapper">
+            <div class="emoji blue neutral grow-color-anim">
+                <div class="eye eye-left"></div>
+                <div class="eye eye-right"></div>
+                <div class="mouth"></div>
+            </div>
+            <span class="label">Büyü-Küçül + Renk</span>
+        </div>
+
+        <div class="emoji-wrapper">
+            <div class="emoji green surprised fade-anim">
+                <div class="eye eye-left"></div>
+                <div class="eye eye-right"></div>
+                <div class="mouth"></div>
+            </div>
+            <span class="label">Transparan</span>
+        </div>
+
+        <div class="emoji-wrapper">
+            <div class="emoji purple wink left-right-anim">
+                <div class="eye eye-left"></div>
+                <div class="eye eye-right"></div>
+                <div class="mouth"></div>
+            </div>
+            <span class="label">Sağa-Sola</span>
+        </div>
+
+        <div class="emoji-wrapper">
+            <div class="emoji orange tongue-out rotate-anim">
+                <div class="eye eye-left"></div>
+                <div class="eye eye-right"></div>
+                <div class="mouth"></div>
+            </div>
+            <span class="label">Dönen</span>
+        </div>
+    </div>
+
+</body>
+</html>
