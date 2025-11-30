@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talha - Ping Pong Game Versiyonları</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #212529; /* Koyu arka plan */
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+        }
+        .welcome-box {
+            background-color: #343a40;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            border: 1px solid #444;
+        }
+        h1 { margin-bottom: 30px; }
+        .btn-game {
+            width: 200px;
+            padding: 15px;
+            margin: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 50px;
+            transition: transform 0.2s;
+        }
+        .btn-game:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="welcome-box">
+        <h1>Ping Pong Oyunu Seçimi</h1>
+        <p class="lead">Hangi versiyonu oynamak istersin?</p>
+        
+        <a href="eski/index.html" class="btn btn-secondary btn-game">
+            Eski Oyun (Siyah/Beyaz)
+        </a>
+        
+        <br>
+
+        <a href="yeni/index.html" class="btn btn-primary btn-game">
+            Yeni Oyun (Renkli)
+        </a>
+    </div>
+
+</body>
+</html>
